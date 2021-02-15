@@ -15,15 +15,17 @@ namespace Raydreams.Encryption
             // use a string based Password to generate the actual key
             byte[] key = KeyMaker.MakeKey( "Password1", salt );
 
-            string path = $"{RayXFile.DesktopPath}/test.jpeg";
+            // path to the test file
+            string path = $"{RayXFile.DesktopPath}/PROS.jpeg";
 
+            // encrypt file handler
             RayXFile fe = new RayXFile(key);
 
             // encrypt the file
             string ecPath = fe.EncryptFile( path );
             Console.WriteLine( $"File Encrypted to {ecPath}" );
 
-            // decrupt the file
+            // decrypt the file
             string dePath = fe.DecryptFile( ecPath );
             Console.WriteLine( $"File Decrypted to {dePath}" );
         }
