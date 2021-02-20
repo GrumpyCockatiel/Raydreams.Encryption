@@ -45,7 +45,7 @@ The file format created here is called `rayx` which is cutom. It is easy to chan
 The byte layout is:
 
 | Bytes | Byte Size | Description |
----------------------------------------
+|-------|-----------|-------------|
 | 1-4 | 4 | Magic Number of header bytes which is always ray\0 |
 | 5-6 | 2 | File Format version number which for now is always 10 |
 | 7-22 | 16 | The initialization vetor used in the AES encryption to encrypt the file |
