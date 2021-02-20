@@ -6,6 +6,7 @@ using Raydreams.Encryption.Security;
 
 namespace Raydreams.Encryption.IO
 {
+    /// <summary>Handles reading and writing our encrypted file format</summary>
     public class RayXFile
     {
         #region [ Fields ]
@@ -17,17 +18,19 @@ namespace Raydreams.Encryption.IO
         public static string Extension = "rayx";
 
         /// <summary>This is the magic number used at the beginning of the file for sniffing.</summary>
+        /// <remarks>This ray\0</remarks>
         public static byte[] Magic = new byte[] { 0x72, 0x61, 0x79, 0x00 };
 
         /// <summary>File format version</summary>
         public static byte[] Version = new byte[] { 0x01, 0x00, };
 
-        /// <summary>Delimiter sequnce</summary>
+        /// <summary>Delimiter sequence</summary>
         public static byte[] Delimiter = new byte[] { 0x00, 0x01 };
 
         #endregion [ Fields ]
 
-        /// <summary></summary>
+        /// <summary>Constructor</summary>
+        /// <param name="key">The symmetric key to be used</param>
         public RayXFile(byte[] key)
         {
             // validate the key
@@ -36,13 +39,14 @@ namespace Raydreams.Encryption.IO
 
         #region [ MyRegion ]
 
-        /// <summary></summary>
+        /// <summary>The actual key</summary>
         public byte[] Key { get; set; }
 
         #endregion [ MyRegion ]
 
-        /// <summary></summary>
-        public string EncryptFile(string path)
+        /// <summary>Encrypt the file at file path</summary>
+        /// <returns>Path to the newly encrypted file</returns>
+        public FileInfo EncryptFile(string path)
         {
             if ( String.IsNullOrWhiteSpace( path ) )
                 return null;
@@ -102,12 +106,12 @@ namespace Raydreams.Encryption.IO
             fs.Flush();
             fs.Close();
 
-            return outPath;
+            return new FileInfo(outPath);
         }
 
-        /// <summary></summary>
-        /// <returns></returns>
-        public string DecryptFile(string path)
+        /// <summary>Decrypt at file path</summary>
+        /// <returns>Path to the decrypted file</returns>
+        public FileInfo DecryptFile(string path)
         {
             if ( String.IsNullOrWhiteSpace( path ) )
                 return null;
@@ -182,7 +186,7 @@ namespace Raydreams.Encryption.IO
 
             fs.Close();
 
-            return outPath;
+            return new FileInfo( outPath );
         }
 
         /// <summary>Test 2 byte arrays are exactly the same</summary>

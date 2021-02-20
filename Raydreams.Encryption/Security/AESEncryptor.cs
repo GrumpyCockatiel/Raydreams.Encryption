@@ -60,8 +60,8 @@ namespace Raydreams.Encryption.Security
 			if ( data == null || data.Length < 1 )
 				throw new System.ArgumentNullException( nameof( data ) );
 
-			// need better validation of the key size
-			if ( key == null || key.Length < 1 )
+			// validation of the key
+			if ( !IsKeySizeValid(key, this.KeySizes[0] ) )
 				throw new System.ArgumentNullException( nameof( key ) );
 
 			// setup the algorithm
@@ -96,13 +96,15 @@ namespace Raydreams.Encryption.Security
 		/// <returns></returns>
 		public byte[] Decrypt( byte[] data, byte[] key, byte[] iv )
 		{
-			// validate input
+			// validate input data
 			if ( data == null || data.Length < 1 )
 				throw new ArgumentNullException( nameof( data ) );
 
-			if ( key == null || key.Length <= 0 )
-				throw new ArgumentNullException( nameof( key ) );
+			// validation of the key
+			if ( !IsKeySizeValid( key, this.KeySizes[0] ) )
+				throw new System.ArgumentNullException( nameof( key ) );
 
+			// validation of the IV
 			if ( iv == null || iv.Length <= 0 )
 				throw new ArgumentNullException( nameof( iv ) );
 
@@ -142,14 +144,45 @@ namespace Raydreams.Encryption.Security
         /// <returns></returns>
 		private byte[] DoCrypto( byte[] data, ICryptoTransform cryptor )
 		{
-			using ( var ms = new MemoryStream() )
-			using ( var cs = new CryptoStream( ms, cryptor, CryptoStreamMode.Write ) )
+			using ( MemoryStream ms = new MemoryStream() )
+			using ( CryptoStream cs = new CryptoStream( ms, cryptor, CryptoStreamMode.Write ) )
 			{
 				cs.Write( data, 0, data.Length );
 				cs.FlushFinalBlock();
 
 				return ms.ToArray();
 			}
+		}
+
+		/// <summary>Test the key is a valid bit size in length for this algorithm</summary>
+        /// <param name="key"></param>
+        /// <param name="sizes"></param>
+        /// <returns></returns>
+		public static bool IsKeySizeValid(byte[] key, KeySizes sizes)
+        {
+			// basic validation of the key
+			if ( key == null || key.Length < 1 )
+				return false;
+
+			// bits in the key
+			int bits = key.Length * 8;
+
+			// init the starting test size
+			int ks = sizes.MinSize;
+
+			do
+			{
+				// if equal we are done
+				if ( bits == ks )
+					return true;
+
+				// increment
+				ks += sizes.SkipSize;
+
+			} while ( ks <= sizes.MaxSize );
+
+			// no valid size
+			return false;
 		}
 
 		#endregion [ Methods ]

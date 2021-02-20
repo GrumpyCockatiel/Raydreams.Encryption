@@ -1,10 +1,11 @@
 ﻿using System;
+using System.IO;
 using Raydreams.Encryption.IO;
 using Raydreams.Encryption.Security;
 
 namespace Raydreams.Encryption
 {
-    /// <summary></summary>
+    /// <summary>Main</summary>
     class Program
     {
         /// <summary>Salt to use on the Key Maker. At least 8 bytes. Should remain the same.</summary>
@@ -22,11 +23,11 @@ namespace Raydreams.Encryption
             RayXFile fe = new RayXFile(key);
 
             // encrypt the file
-            string ecPath = fe.EncryptFile( path );
+            FileInfo ecPath = fe.EncryptFile( path );
             Console.WriteLine( $"File Encrypted to {ecPath}" );
 
             // decrypt the file
-            string dePath = fe.DecryptFile( ecPath );
+            FileInfo dePath = fe.DecryptFile( ecPath.FullName );
             Console.WriteLine( $"File Decrypted to {dePath}" );
         }
     }
