@@ -31,18 +31,21 @@ namespace Raydreams.Encryption.IO
 
         /// <summary>Constructor</summary>
         /// <param name="key">The symmetric key to be used</param>
-        public RayXFile(byte[] key)
+        public RayXFile( byte[] key )
         {
             // validate the key
             this.Key = key;
         }
 
-        #region [ MyRegion ]
+        #region [ Properties ]
 
         /// <summary>The actual key</summary>
         public byte[] Key { get; set; }
 
-        #endregion [ MyRegion ]
+        /// <summary>The suffix to append to a DEcrypted file to make sure you don't overwrite the original</summary>
+        public string Suffix { get; set; } = "-copy";
+
+        #endregion [ Properties ]
 
         /// <summary>Encrypt the file at file path</summary>
         /// <returns>Path to the newly encrypted file</returns>
@@ -70,6 +73,9 @@ namespace Raydreams.Encryption.IO
             // encrypt
             AESEncryptor enc = new AESEncryptor();
             CipherMessage results = enc.Encrypt( data, this.Key );
+
+            // remove the orginal from memory
+            enc.Clear();
 
             // write to file - never overwrite
             string outPath = $"{dir}/{name}.{Extension}";
@@ -180,8 +186,9 @@ namespace Raydreams.Encryption.IO
             // decrypt
             AESEncryptor enc = new AESEncryptor();
             byte[] file = enc.Decrypt( data, this.Key, iv );
+            enc.Clear();
 
-            string outPath = $"{dir}/{name}-copy.{ext}";
+            string outPath = $"{dir}/{name}{this.Suffix}.{ext}";
             File.WriteAllBytes( outPath, file );
 
             fs.Close();

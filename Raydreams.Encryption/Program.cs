@@ -26,6 +26,7 @@ namespace Raydreams.Encryption
             FileInfo ecPath = fe.EncryptFile( path );
             Console.WriteLine( $"File Encrypted to {ecPath}" );
 
+
             // decrypt the file
             FileInfo dePath = fe.DecryptFile( ecPath.FullName );
             Console.WriteLine( $"File Decrypted to {dePath}" );
