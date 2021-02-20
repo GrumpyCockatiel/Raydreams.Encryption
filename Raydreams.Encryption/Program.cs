@@ -14,7 +14,7 @@ namespace Raydreams.Encryption
         static void Main( string[] args )
         {
             // use a string based Password to generate the actual key
-            byte[] key = KeyMaker.MakeKey( "Password1", salt );
+            byte[] key = StrongKeyMaker.Make32BitKey( "Password1", salt );
 
             // path to the test file
             string path = $"{RayXFile.DesktopPath}/PROS.jpeg";

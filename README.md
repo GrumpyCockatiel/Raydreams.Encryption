@@ -4,7 +4,7 @@
 
 This is a simple command line example on how to Symmetrically encrypt files using AES with a 256 bit key.
 
-In this example the key is generated from a text password, though of course you can use a byte key. Using a text password just makes it easier to remember the key but probably less secure. A truely randmom 32 byte key is best.
+In this example the key is generated from a text password, though of course you can use a byte key. Using a text password just makes it easier to remember the key but probably less secure. A truely randmom 32 byte key is best. Keep in mind that the password is independent of the key. The password is just used to create a key.
 
 A key maker has to be salted. Use any salt you like. However, you have to use the same salt if you are using a plain text key.
 
@@ -40,7 +40,7 @@ class Program
 
 ## File Format
 
-The file format created here is called `rayx` which is cutom. It is easy to change.
+The file format created here is called **rayx** which is cutom. It is easy to change. It's just a spec I made up.
 
 The byte layout is:
 
@@ -50,7 +50,7 @@ The byte layout is:
 | 5-6 | 2 | File Format version number which for now is always 10 |
 | 7-22 | 16 | The initialization vetor used in the AES encryption to encrypt the file |
 | 23-24 | 2 | Data Delimiter which is always 01 |
-| 25 | 1 | The length of the string of the original file extension i.e. jpeg = 4 |
+| 25 | 1 | The length of the string of the original file extension e.g. jpeg = 4 |
 | 26-(N-1) | N |The original extension string
 | (26+N)-(26+N+2) | 2 | Data Delimiter again |
 | (26+N+3) | 1 | Length of metadta which for now is unused and thus 0

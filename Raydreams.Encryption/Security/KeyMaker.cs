@@ -4,15 +4,24 @@ using System.Text;
 
 namespace Raydreams.Encryption.Security
 {
-	/// <summary></summary>
-	public static class KeyMaker
+	/// <summary>Define the Key Maker as a delegate for different strengths</summary>
+    /// <param name="pw"></param>
+    /// <param name="salt"></param>
+    /// <param name="iterations"></param>
+    /// <returns></returns>
+	public delegate byte[] MakeKey( string pw, byte[] salt, int iterations);
+
+	/// <summary>A class that generates a 256 bit key from a text phrase</summary>
+	public static class StrongKeyMaker
 	{
+		/// <summary>The physical key size.</summary>
+		/// <remarks>While you can use 16 or 24 bits, we really want the strongest key.</remarks>
 		public const int KeySize = 32;
 
 		/// <summary>Generates a symmetric key to use from a string password</summary>
 		/// <returns>A 256 bit key</returns>
         /// <remarks>The salt and iterations must always be the same to get the same results.</remarks>
-		public static byte[] MakeKey( string pw, byte[] salt, int iterations = 1000 )
+		public static byte[] Make32BitKey( string pw, byte[] salt, int iterations = 1000 )
 		{
 			// valiadate
 			if ( pw == null )
