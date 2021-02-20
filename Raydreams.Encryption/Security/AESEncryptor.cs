@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.IO;
 using System.Security.Cryptography;
 
@@ -22,10 +23,11 @@ namespace Raydreams.Encryption.Security
 		{
 			this._algo = new RijndaelManaged();
 			this.Algorithm.Mode = CipherMode.CBC;
+			// these are all defaults
 			//this.Algorithm.KeySize = 128;
 			//this.Algorithm.BlockSize = 128;
 			//this.Algorithm.FeedbackSize = 128;
-			//this.Algorithm.Padding = PaddingMode.Zeros;
+			this.Algorithm.Padding = PaddingMode.PKCS7;
 		}
 
 		#endregion [ Constructors ]
