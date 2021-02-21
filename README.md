@@ -2,12 +2,21 @@
 
 ## Description
 
-This is a simple command line example on how to Symmetrically encrypt files using AES with a 256 bit key.
+This is a simple command line example on how to Symmetrically encrypt files using AES with a 256 bit key. Remember, Symmetric is stronger and harder to crack even with a shorter key. It's downside is you can't share the key with anyone you don't want to be able to open your files. Every computer in the world working together to brute force an AES 256 key would not find the solution before you died.
 
-In this example the key is generated from a text password, though of course you can use a byte key. Using a text password just makes it easier to remember the key but probably less secure. A truely randmom 32 byte key is best. Keep in mind that the password is independent of the key. The password is just used to create a key.
+![AES Algorithm](./readme/aes.png)
+
+**However**
+
+In this example the key is generated from a text password, though of course you can use a byte key. Using a text password just makes it easier to remember the key but probably less secure. A truely random 32 byte key is best. Keep in mind that the password is independent of the key. The password is just used to create a key.
 
 A key maker has to be salted. Use any salt you like. However, you have to use the same salt if you are using a plain text key.
 
+So, while a random 32 bit key would be impossible to guess, if you generate your key from a simple password (and an attacker knows that), finding the pass phrase that **created** your key would be much easier.
+
+## Execution
+
+The included command line Program is just to demonstrate how to use the included classes. Modify the path to the file you wish to encrypt and set a password. You can also modify the salt to whatever you want.
 
 ```
 class Program
@@ -40,7 +49,7 @@ class Program
 
 ## File Format
 
-The file format created here is called **rayx** which is cutom. It is easy to change. It's just a spec I made up.
+The file format created here is called **rayx** which is cutom. It is easy to change. It's just a spec I made up. I'm totally open to changing it. The 256 byte metadata area is not yet in use.
 
 The byte layout is:
 
@@ -56,3 +65,13 @@ The byte layout is:
 | (26+N+3) | 1 | Length of metadta which for now is unused and thus 0
 | (26+N+4) | M | the actual encrypted data |
 
+### Initialization Vector (IV)
+The IV seeds the algorithm (the starting point) and required for decryption. However, knowing it will not help in cracking. AES 256 uses a 4x4 block vector and the 16 IV bytes are used to initialize that vector instead of setting them all to 0.
+
+## Future Enhancements
+
+I plan to create a drag and drop desktop utility that will perform the encyption and decryption. A public open source repo ensures no funny business is going on unlike some app you might download from the app store written by a guy in his basement.
+
+## What's It For
+
+Encrypt your own sensitive files to store in a cloud drive. Seriously, do you trust Apple, Amazon, DropBox, Microsoft, ...?
