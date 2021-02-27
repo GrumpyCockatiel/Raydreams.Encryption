@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.808.8
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raydreams.Encryption", "Raydreams.Encryption\Raydreams.Encryption.csproj", "{EF126281-C0AE-470B-BE5A-CD5BB78F9C71}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raydreams.Encryption.Exe", "Raydreams.Encryption.Exe\Raydreams.Encryption.Exe.csproj", "{EF126281-C0AE-470B-BE5A-CD5BB78F9C71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raydreams.Encryption.Mac", "Raydreams.Encryption.Mac\Raydreams.Encryption.Mac.csproj", "{205F4AA2-5BB2-4EAD-A716-024B150CA718}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raydreams.Encryption", "Raydreams.Encryption\Raydreams.Encryption.csproj", "{10B0C32C-8241-4E9B-B493-BF804C348BAC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{EF126281-C0AE-470B-BE5A-CD5BB78F9C71}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF126281-C0AE-470B-BE5A-CD5BB78F9C71}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF126281-C0AE-470B-BE5A-CD5BB78F9C71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{205F4AA2-5BB2-4EAD-A716-024B150CA718}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{205F4AA2-5BB2-4EAD-A716-024B150CA718}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{205F4AA2-5BB2-4EAD-A716-024B150CA718}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{205F4AA2-5BB2-4EAD-A716-024B150CA718}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10B0C32C-8241-4E9B-B493-BF804C348BAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10B0C32C-8241-4E9B-B493-BF804C348BAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10B0C32C-8241-4E9B-B493-BF804C348BAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10B0C32C-8241-4E9B-B493-BF804C348BAC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

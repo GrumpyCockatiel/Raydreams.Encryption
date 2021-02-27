@@ -3,7 +3,7 @@ using System.IO;
 using Raydreams.Encryption.IO;
 using Raydreams.Encryption.Security;
 
-namespace Raydreams.Encryption
+namespace Raydreams.Encryption.Exe
 {
     /// <summary>Main</summary>
     class Program
@@ -25,7 +25,6 @@ namespace Raydreams.Encryption
             // encrypt the file
             FileInfo ecPath = fe.EncryptFile( path );
             Console.WriteLine( $"File Encrypted to {ecPath}" );
-
 
             // decrypt the file
             FileInfo dePath = fe.DecryptFile( ecPath.FullName );

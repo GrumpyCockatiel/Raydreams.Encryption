@@ -47,6 +47,34 @@ namespace Raydreams.Encryption.IO
 
         #endregion [ Properties ]
 
+        /// <summary>Quick file sniff to see if the leading bytes are the magic number</summary>
+        public static bool Sniff( string path )
+        {
+            if ( String.IsNullOrWhiteSpace( path ) )
+                return false;
+
+            // get a handle to the file
+            FileInfo fi = new FileInfo( path );
+
+            if ( !fi.Exists )
+            {
+                return false;
+            }
+
+            // write to file - never overwrite
+            using FileStream fs = new FileStream( path, FileMode.Open, FileAccess.Read );
+
+            // 4 bytes - write a magic number - which is 'ray' followed by 0
+            byte[] magic = new byte[Magic.Length];
+            fs.Read( magic );
+            fs.Close();
+
+            if ( !ArraysEqual( magic, Magic ) )
+                return false;
+
+            return true;
+        }
+
         /// <summary>Encrypt the file at file path</summary>
         /// <returns>Path to the newly encrypted file</returns>
         public FileInfo EncryptFile(string path)
@@ -146,7 +174,7 @@ namespace Raydreams.Encryption.IO
             byte[] magic = new byte[Magic.Length];
             fs.Read( magic );
 
-            if ( !this.ArraysEqual(magic, Magic) )
+            if ( !ArraysEqual(magic, Magic) )
                 return null;
 
             // 2 bytes - write the file format version which is 1.0
@@ -197,7 +225,7 @@ namespace Raydreams.Encryption.IO
         }
 
         /// <summary>Test 2 byte arrays are exactly the same</summary>
-        private bool ArraysEqual(byte[] b1, byte[] b2)
+        private static bool ArraysEqual(byte[] b1, byte[] b2)
         {
             if ( b1 == null && b2 != null )
                 return false;
