@@ -54,24 +54,24 @@ namespace Raydreams.Encryption.Mac
 				//	NSDirectoryEnumerationOptions.SkipsHiddenFiles | NSDirectoryEnumerationOptions.SkipsSubdirectoryDescendants,
 				//	out err );
 
+				// use a string based Password to generate the actual key
+				byte[] key = StrongKeyMaker.Make32BitKey( AppDelegate.DefaultPassword, AppDelegate.Salt );
+
+				RayXFile fe = new RayXFile( key );
+
+				// is it already encrypted
 				if ( dialog.Url.PathExtension.Equals( RayXFile.Extension, StringComparison.CurrentCultureIgnoreCase ) )
 				{
 					if ( !RayXFile.Sniff( dialog.Url.Path ) )
 						return false;
 
-					// use a string based Password to generate the actual key
-					byte[] key = StrongKeyMaker.Make32BitKey( "Password1", AppDelegate.Salt );
-
-					RayXFile fe = new RayXFile( key );
 					FileInfo fi = fe.DecryptFile( dialog.Url.Path );
                 }
-
-				// only process the .xls, .csv, .txt or .xlsx files
-
-				// field of the file being processed
-				//this.fileField.StringValue = dialog.Url.AbsoluteString;
-
-				// check the extension on the file to determine what to do
+				else // decrypt
+                {
+					// need to check the size of the file since there is a limit we can handle for now
+					FileInfo ecPath = fe.EncryptFile( dialog.Url.Path );
+				}
 			}
 
 			return true;

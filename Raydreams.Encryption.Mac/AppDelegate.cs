@@ -8,7 +8,11 @@ namespace Raydreams.Encryption.Mac
     public class AppDelegate : NSApplicationDelegate
     {
         /// <summary>Salt to use on the Key Maker. At least 8 bytes. Should remain the same.</summary>
+        /// <remarks>Change this in your version. KeyMaker will produce a different key with a different salt</remarks>
         public static readonly byte[] Salt = new byte[] { 0x21, 0xba, 0xdf, 0xd0, 0x8c, 0x89, 0x97, 0x0c, 0x2b, 0xd0, 0x71, 0x86, 0x4e, 0x32, 0x2e, 0x52 };
+
+        /// <summary>Only for testing. You should never use a hard coded password.</summary>
+        public static readonly string DefaultPassword = "Password1";
 
         public AppDelegate()
         {

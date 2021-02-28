@@ -6,6 +6,10 @@ This is a simple command line example on how to Symmetrically encrypt files usin
 
 ![AES Algorithm](./readme/aes.png)
 
+Eventually I will add an option for Cha Cha as well unless someone else wants to ;-)
+
+[ChaCha Algorithm](https://en.wikipedia.org/wiki/Salsa20)
+
 **However**
 
 In this example the key is generated from a text password, though of course you can use a byte key. Using a text password just makes it easier to remember the key but probably less secure. A truely random 32 byte key is best. Keep in mind that the password is independent of the key. The password is just used to create a key.

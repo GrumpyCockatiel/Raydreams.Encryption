@@ -27,14 +27,20 @@ namespace Raydreams.Encryption.IO
         /// <summary>Delimiter sequence</summary>
         public static byte[] Delimiter = new byte[] { 0x00, 0x01 };
 
+        private string _suffix = "-copy";
+
         #endregion [ Fields ]
 
         /// <summary>Constructor</summary>
         /// <param name="key">The symmetric key to be used</param>
-        public RayXFile( byte[] key )
+        /// <param name="suffix">When decrypting append the suffix, empty string is valid</param>
+        public RayXFile( byte[] key, string suffix = "-copy" )
         {
-            // validate the key
+            // TODO - validate the key
             this.Key = key;
+
+            // set the suffix to append on decryption
+            this.Suffix = suffix;
         }
 
         #region [ Properties ]
@@ -43,7 +49,15 @@ namespace Raydreams.Encryption.IO
         public byte[] Key { get; set; }
 
         /// <summary>The suffix to append to a DEcrypted file to make sure you don't overwrite the original</summary>
-        public string Suffix { get; set; } = "-copy";
+        public string Suffix
+        {
+            get { return this._suffix ?? "-copy"; }
+            set
+            {
+                if ( value != null )
+                    this._suffix = value.Trim();
+            }
+        }
 
         #endregion [ Properties ]
 
