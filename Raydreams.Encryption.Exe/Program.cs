@@ -13,6 +13,22 @@ namespace Raydreams.Encryption.Exe
 
         static void Main( string[] args )
         {
+            Program app = new Program();
+            app.Run();
+
+            Console.WriteLine("Done");
+        }
+
+        /// <summary></summary>
+        public void Run()
+        {
+            string path = $"{RayXFile.DesktopPath}/colorwheel.png";
+            string base64 = this.GetBase64File(path);
+        }
+
+        /// <summary></summary>
+        private void EncryptDecrypt()
+        {
             // use a string based Password to generate the actual key
             byte[] key = StrongKeyMaker.Make32BitKey( "Password1", salt, 9999 );
 
@@ -20,7 +36,7 @@ namespace Raydreams.Encryption.Exe
             string path = $"{RayXFile.DesktopPath}/PROS.jpeg";
 
             // encrypt file handler
-            RayXFile fe = new RayXFile(key);
+            RayXFile fe = new RayXFile( key );
 
             // encrypt the file
             FileInfo ecPath = fe.EncryptFile( path );
@@ -30,5 +46,23 @@ namespace Raydreams.Encryption.Exe
             FileInfo dePath = fe.DecryptFile( ecPath.FullName );
             Console.WriteLine( $"File Decrypted to {dePath}" );
         }
+
+        /// <summary></summary>
+        private string GetBase64File(string path)
+        {
+            if ( String.IsNullOrWhiteSpace( path ) )
+                return null;
+
+            // get a handle to the file
+            FileInfo fi = new FileInfo( path );
+
+            if ( !fi.Exists )
+                return null;
+
+            byte[] data = File.ReadAllBytes( path );
+
+            return Convert.ToBase64String( data, Base64FormattingOptions.None );
+        }
+
     }
 }
