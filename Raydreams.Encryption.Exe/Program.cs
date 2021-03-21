@@ -22,7 +22,7 @@ namespace Raydreams.Encryption.Exe
         /// <summary></summary>
         public void Run()
         {
-            string path = $"{RayXFile.DesktopPath}/colorwheel.png";
+            string path = $"{RayXFile.DesktopPath}/noimage.png";
             string base64 = this.GetBase64File(path);
         }
 
